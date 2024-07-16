@@ -45,7 +45,57 @@ class User{
             }else{
                 return false;
             }
+        }
+    }
 
+    public function getAllUser()
+    {
+        $sql = "SELECT * FROM user";
+        $dbcon = $this->dbcon->query($sql);
+        $result = array();
+        if($this->dbcon->affected_rows >0)
+        {
+            while($row = $dbcon->fetch_assoc()){
+                $result[] = $row;
+                     }
+                     return $result;
+            }else{
+            return $result;
+            
+        }
+    }
+
+    public function getSingleUser($id)
+    {
+        $sql = "SELECT * FROM user WHERE id='$id'";
+        $dbcon = $this->dbcon->query($sql);
+        if($this->dbcon->affected_rows ==1){
+            $row = $dbcon->fetch_assoc();
+            return $row;
+        }else{
+            return false;
+        }
+    }
+    
+    public function updateUser($firstName,$lastName,$phoneNumber,$id)
+    {
+        $sql = "UPDATE user SET first_name='$firstName',last_name='$lastName',phone_number='$phoneNumber' WHERE id='$id'";
+        $dbcon = $this->dbcon->query($sql);
+        if($this->dbcon->affected_rows == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function deleteUser($id)
+    {
+        $sql = "DELETE FROM user WHERE id='$id'";
+        $dbcon = $this->dbcon->query($sql);
+        if($this->dbcon->affected_rows == 1){
+            return true;
+        }else{
+            return false;
         }
 
     }
